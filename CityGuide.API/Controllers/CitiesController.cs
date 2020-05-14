@@ -4,8 +4,10 @@ using System.Collections.Generic;
 namespace CityGuide.API.Controllers
 {
     [ApiController]
+    [Route("api/cities")]
     public class CitiesController : ControllerBase
     {
+        [HttpGet]
        public JsonResult GetCities()
         {
             return new JsonResult(
