@@ -25,9 +25,15 @@ namespace CityGuide.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            else
             {
-                await context.Response.WriteAsync("Hello World!");
+                app.UseExceptionHandler();
+            }
+
+            app.Run( (context) =>
+            {
+                throw new Exception("Example exception");
+                //await context.Response.WriteAsync("Hello World!");
             });
         }
     }
