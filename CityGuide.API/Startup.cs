@@ -32,6 +32,8 @@ namespace CityGuide.API
                 app.UseExceptionHandler();
             }
 
+            app.UseStatusCodePages();
+
             app.UseMvc();
 
         }

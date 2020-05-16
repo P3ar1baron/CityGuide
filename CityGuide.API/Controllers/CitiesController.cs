@@ -9,9 +9,9 @@ namespace CityGuide.API.Controllers
     public class CitiesController : ControllerBase
     {
         [HttpGet]
-       public JsonResult GetCities()
+       public IActionResult GetCities()
         {
-            return new JsonResult(CitiesDataStore.Current.Cities);
+            return  Ok(CitiesDataStore.Current.Cities);
         }
 
         [HttpGet("{id}")]
@@ -26,8 +26,7 @@ namespace CityGuide.API.Controllers
                 return NotFound();
             }
 
-            return new JsonResult(
-                CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id));
+            return Ok(cityToReturn);
         }
     }
 }
