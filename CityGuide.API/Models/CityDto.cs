@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,5 +14,16 @@ namespace CityGuide.API.Models
 
         public string Description { get; set; }
 
+        public int NumberOfPointsOfInterest 
+        {
+            get
+            {
+                return PointsOfInterest.Count;
+            }
+        }
+
+        //initialize empty collection to avoid null reference exception
+        public ICollection<PointOfInterestDto> PointsOfInterest { get; set; }
+            = new List<PointOfInterestDto>();
     }
 }
