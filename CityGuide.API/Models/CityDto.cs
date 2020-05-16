@@ -13,6 +13,5 @@ namespace CityGuide.API.Models
 
         public string Description { get; set; }
 
-        public int NumbersOfPointsOfInterest { get; set; }
     }
 }
