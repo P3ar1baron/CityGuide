@@ -9,6 +9,12 @@ namespace CityGuide.API.Contexts
 
         public DbSet<PointOfInterest> PointsOfInterests { get; set; }
 
+        public CityInfoContext(DbContextOptions<CityInfoContext> options)
+            :base(options)
+        {
+            Database.EnsureCreated();
+        }
+
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    optionsBuilder.UseSqlServer("connectionstring");
