@@ -35,6 +35,9 @@ namespace CityGuide.API
                         logger.Error(ex, "An error occcured while migrating the database.");
                     }
                 }
+
+                //run web app
+                host.Run();
             }
             catch (Exception ex)
             {
