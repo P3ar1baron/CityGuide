@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore;
+﻿using CityGuide.API.Contexts;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NLog.Fluent;
 using NLog.Web;
 using System;
@@ -16,7 +19,22 @@ namespace CityGuide.API
             try
             {
                 logger.Info("Initializing application...");
-                CreateWebHostBuilder(args).Build().Run();
+                var host = CreateWebHostBuilder(args).Build();
+
+                using (var scope = host.Services.CreateScope())
+                {
+                    try
+                    {
+                        var context = scope.ServiceProvider.GetService<CityInfoContext>();
+
+                        context.Database.EnsureDeleted();
+                        context.Database.Migrate();
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex, "An error occcured while migrating the database.");
+                    }
+                }
             }
             catch (Exception ex)
             {
