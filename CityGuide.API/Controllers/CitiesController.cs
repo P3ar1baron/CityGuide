@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CityGuide.API.Models;
+using CityGuide.API.Services;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,10 +11,32 @@ namespace CityGuide.API.Controllers
     [Route("api/cities")]
     public class CitiesController : ControllerBase
     {
-        [HttpGet]
-       public IActionResult GetCities()
+        private readonly ICityInfoRepository _cityInfoRepository;
+
+        public CitiesController(ICityInfoRepository cityInfoRepository)
         {
-            return  Ok(CitiesDataStore.Current.Cities);
+            _cityInfoRepository = cityInfoRepository ??
+                throw new ArgumentException(nameof(cityInfoRepository));
+        }
+
+        [HttpGet]
+        public IActionResult GetCities()
+        {
+            var cityEntities = _cityInfoRepository.GetCities();
+
+            var results = new List<CityWithoutPointsOfInterestDto>();
+
+            foreach (var cityEntity in cityEntities)
+            {
+                results.Add(new CityWithoutPointsOfInterestDto
+                {
+                    Id = cityEntity.Id,
+                    Description = cityEntity.Description,
+                    Name = cityEntity.Name
+                });
+            }
+
+            return Ok(results);
         }
 
         [HttpGet("{id}")]
