@@ -1,9 +1,11 @@
-﻿using CityGuide.API.Models;
+﻿using CityGuide.API.Entities;
+using CityGuide.API.Models;
 using CityGuide.API.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CityGuide.API.Controllers
@@ -35,16 +37,29 @@ namespace CityGuide.API.Controllers
             try
             {
                 //throw new Exception("Exception sample");
-
-                var pointsOfInterestForCity = _cityInfoRepository.GetPointsOfInterestForCity(cityId);
-
-                if (city == null)
+                if (!_cityInfoRepository.CityExists(cityId))
                 {
-                    _logger.LogInformation($"City with id {cityId} wasn't found when accessing points of interest.");
+                    _logger.LogInformation($"City with id {cityId} wasn't found when " +
+                        $"accessing points of interest. ");
                     return NotFound();
                 }
 
-                return Ok(city.PointsOfInterest);
+                var pointsOfInterestForCity = _cityInfoRepository.GetPointsOfInterestForCity(cityId);
+
+                var pointsOfInterestForCityResults = new List<PointOfInterestDto>();
+
+                foreach (var poi in pointsOfInterestForCity)
+                {
+                    pointsOfInterestForCityResults.Add(new PointOfInterestDto()
+                    {
+                        Id = poi.Id,
+                        Name = poi.Name,
+                        Description = poi.Description
+                    });
+                }
+
+                return Ok(pointsOfInterestForCityResults);
+
             }
             catch (Exception ex)
             {
