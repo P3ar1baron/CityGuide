@@ -1,6 +1,5 @@
 ﻿using CityGuide.API.Contexts;
 using CityGuide.API.Entities;
-using Microsoft.AspNetCore.Identity.UI.Pages.Internal.Account.Manage;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -49,6 +48,12 @@ namespace CityGuide.API.Services
         public bool CityExists(int cityId)
         {
             return _context.Cities.Any(c => c.Id == cityId);
+        }
+
+        public void AddPointOfInterestForCity(int cityId, PointOfInterest pointOfInterest)
+        {
+            var city = GetCity(cityId, false);
+            city.PointsOfInterest.Add(pointOfInterest);
         }
     }
 }
