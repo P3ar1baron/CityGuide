@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CityGuide.API.Profiles
 {
@@ -10,7 +11,9 @@ namespace CityGuide.API.Profiles
 
             CreateMap<Models.PointOfInterestForCreationDto, Entities.PointOfInterest>();
 
-            CreateMap<Models.PointOfInterestForUpdateDto, Entities.PointOfInterest>();
+            CreateMap<Models.PointOfInterestForUpdateDto, Entities.PointOfInterest>()
+                .ReverseMap();
+
         }
     }
 }
