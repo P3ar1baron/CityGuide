@@ -28,19 +28,19 @@ namespace CityGuide.API.Controllers
         {
             var cityEntities = _cityInfoRepository.GetCities();
 
-            var results = new List<CityWithoutPointsOfInterestDto>();
+            //var results = new List<CityWithoutPointsOfInterestDto>();
 
-            foreach (var cityEntity in cityEntities)
-            {
-                results.Add(new CityWithoutPointsOfInterestDto
-                {
-                    Id = cityEntity.Id,
-                    Description = cityEntity.Description,
-                    Name = cityEntity.Name
-                });
-            }
+            //foreach (var cityEntity in cityEntities)
+            //{
+            //    results.Add(new CityWithoutPointsOfInterestDto
+            //    {
+            //        Id = cityEntity.Id,
+            //        Description = cityEntity.Description,
+            //        Name = cityEntity.Name
+            //    });
+            //}
 
-            return Ok(results);
+            return Ok(_mapper.Map<IEnumerable<CityWithoutPointsOfInterestDto>>(cityEntities));
         }
 
         [HttpGet("{id}")]
