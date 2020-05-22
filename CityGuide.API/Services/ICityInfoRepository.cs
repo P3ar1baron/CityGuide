@@ -19,5 +19,7 @@ namespace CityGuide.API.Services
         bool CityExists(int cityId);
 
         void AddPointOfInterestForCity(int cityId, PointOfInterest pointOfInterest);
+
+        bool Save();
     }
 }

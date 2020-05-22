@@ -55,5 +55,10 @@ namespace CityGuide.API.Services
             var city = GetCity(cityId, false);
             city.PointsOfInterest.Add(pointOfInterest);
         }
+
+        public bool Save()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
     }
 }
