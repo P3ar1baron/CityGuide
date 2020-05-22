@@ -56,6 +56,12 @@ namespace CityGuide.API.Services
             city.PointsOfInterest.Add(pointOfInterest);
         }
 
+        // if we want to use another change tracker
+        public void UpdatePointOfInterestForCity(int cityId, PointOfInterest pointOfInterest)
+        {
+
+        }
+
         public bool Save()
         {
             return (_context.SaveChanges() >= 0);
