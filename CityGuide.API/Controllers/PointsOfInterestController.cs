@@ -1,4 +1,5 @@
-﻿using CityGuide.API.Entities;
+﻿using AutoMapper;
+using CityGuide.API.Entities;
 using CityGuide.API.Models;
 using CityGuide.API.Services;
 using Microsoft.AspNetCore.JsonPatch;
@@ -17,11 +18,13 @@ namespace CityGuide.API.Controllers
         private readonly ILogger<PointsOfInterestController> _logger;
         private readonly IMailService _mailService;
         private readonly ICityInfoRepository _cityInfoRepository;
+        private readonly IMapper _mapper;
 
 
         //dependency injection via constructor
         public PointsOfInterestController(ILogger<PointsOfInterestController> logger,
-            IMailService mailService, ICityInfoRepository cityInfoRepository)
+            IMailService mailService, ICityInfoRepository cityInfoRepository,
+            IMapper mapper)
         {
             _logger = logger ??
                 throw new ArgumentNullException(nameof(logger));
@@ -29,6 +32,8 @@ namespace CityGuide.API.Controllers
                 throw new ArgumentNullException(nameof(mailService));
             _cityInfoRepository = cityInfoRepository ??
                 throw new ArgumentNullException(nameof(cityInfoRepository));
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
