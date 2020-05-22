@@ -1,4 +1,5 @@
-﻿using CityGuide.API.Contexts;
+﻿using AutoMapper;
+using CityGuide.API.Contexts;
 using CityGuide.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -51,6 +52,8 @@ namespace CityGuide.API
             });
 
             services.AddScoped<ICityInfoRepository, CityInfoRepository>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
