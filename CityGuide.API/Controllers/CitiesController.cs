@@ -1,9 +1,9 @@
-﻿using CityGuide.API.Models;
+﻿using AutoMapper;
+using CityGuide.API.Models;
 using CityGuide.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CityGuide.API.Controllers
 {
@@ -12,11 +12,15 @@ namespace CityGuide.API.Controllers
     public class CitiesController : ControllerBase
     {
         private readonly ICityInfoRepository _cityInfoRepository;
+        private readonly IMapper _mapper;
 
-        public CitiesController(ICityInfoRepository cityInfoRepository)
+        public CitiesController(ICityInfoRepository cityInfoRepository,
+            IMapper mapper )
         {
             _cityInfoRepository = cityInfoRepository ??
                 throw new ArgumentException(nameof(cityInfoRepository));
+            _mapper = mapper ??
+                throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
